@@ -1,0 +1,104 @@
+# Slatewave for delta — slate-and-teal git diffs
+#
+# Drop the whole file into your ~/.gitconfig, or include it from there:
+#   [include]
+#       path = ~/.config/delta-slatewave/slatewave.gitconfig
+#
+# Pairs with bat-slatewave, which provides the "Slatewave" syntax theme
+# delta reads via syntax-theme.
+#
+# Repo: https://github.com/kevinlangleyjr/delta-slatewave
+
+[core]
+    pager = delta
+
+[interactive]
+    diffFilter = delta --color-only
+
+[merge]
+    conflictStyle = zdiff3
+
+[delta]
+    # ---------------------------------------------------------------
+    # Layout
+    # ---------------------------------------------------------------
+    navigate      = true
+    line-numbers  = true
+    side-by-side  = false
+    hyperlinks    = true
+    syntax-theme  = Slatewave
+    tabs          = 4
+
+    # ---------------------------------------------------------------
+    # Diff content — backgrounds tinted with the role color,
+    # foreground left as `syntax` so highlighting still reads.
+    # ---------------------------------------------------------------
+    minus-style          = syntax "#3b0e1a"
+    minus-emph-style     = syntax bold "#7a1a2a"
+    minus-non-emph-style = syntax "#2a0a13"
+    plus-style           = syntax "#0e3a35"
+    plus-emph-style      = syntax bold "#1d6457"
+    plus-non-emph-style  = syntax "#0a2a26"
+    zero-style           = syntax
+
+    # ---------------------------------------------------------------
+    # Hunk header — teal label sat in a slate-600 box,
+    # amber line-number math so @@ -12,7 +12,9 @@ reads
+    # ---------------------------------------------------------------
+    hunk-header-style             = "#5eead4" bold
+    hunk-header-decoration-style  = "#475569" box
+    hunk-header-file-style        = "#94a3b8"
+    hunk-header-line-number-style = "#fbbf24" bold
+
+    # ---------------------------------------------------------------
+    # File header — slate-200 with a teal underline
+    # ---------------------------------------------------------------
+    file-style            = "#e2e8f0" bold
+    file-decoration-style = "#5eead4" ul
+
+    # ---------------------------------------------------------------
+    # Commit metadata — slate body, slate-rule
+    # ---------------------------------------------------------------
+    commit-style            = "#cbd5e1" bold
+    commit-decoration-style = "#475569" box
+
+    # ---------------------------------------------------------------
+    # Line numbers — slate gutter, accent on changed lines
+    # ---------------------------------------------------------------
+    line-numbers-left-style   = "#475569"
+    line-numbers-right-style  = "#475569"
+    line-numbers-minus-style  = "#fb7185"
+    line-numbers-plus-style   = "#5eead4"
+    line-numbers-zero-style   = "#64748b"
+    line-numbers-left-format  = "{nm:>4}┊"
+    line-numbers-right-format = "{np:>4}│ "
+
+    # ---------------------------------------------------------------
+    # Whitespace errors — rose, reversed so the cursor catches them
+    # ---------------------------------------------------------------
+    whitespace-error-style = "#fb7185" reverse
+
+    # ---------------------------------------------------------------
+    # Blame palette — slate gradient, authorship reads as depth
+    # ---------------------------------------------------------------
+    blame-palette    = "#1e293b" "#282c34" "#334155" "#475569"
+    blame-code-style = syntax
+    blame-format     = "{author:<18} ({commit:>8}) {timestamp:^16}"
+
+    # ---------------------------------------------------------------
+    # Merge conflicts — rose for ours, teal for theirs
+    # ---------------------------------------------------------------
+    merge-conflict-begin-symbol                        = ⇄
+    merge-conflict-end-symbol                          = ⇄
+    merge-conflict-ours-diff-header-style              = "#fb7185" bold
+    merge-conflict-ours-diff-header-decoration-style   = "#fb7185" box
+    merge-conflict-theirs-diff-header-style            = "#5eead4" bold
+    merge-conflict-theirs-diff-header-decoration-style = "#5eead4" box
+
+    # ---------------------------------------------------------------
+    # Grep output (delta is the default pager for `git grep`)
+    # ---------------------------------------------------------------
+    grep-file-style        = "#5eead4"
+    grep-line-number-style = "#fbbf24"
+    grep-match-line-style  = syntax
+    grep-match-word-style  = "#fb7185" reverse
